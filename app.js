@@ -31,12 +31,14 @@ app.post('/', function (req, res) {
     };
 
     const jsonData = JSON.stringify(data);
-    const url = 'https://us21.api.mailchimp.com./3.0/lists/1a5cbd9dab';
-    const options = {
-        method: 'POST',
-        auth: 'Lukasz:dc6c9b10e8fdf9630ea79f3aba55292a-us21'
-    }
+    //Here is the data from the API, which I cannot share!
+    
     const request = https.request(url, options, function (response) {
+        if (response.statusCode === 200) {
+            res.sendFile(__dirname + '/success.html');
+        } else {
+            res.sendFile(__dirname + '/failure.html');
+        }
         response.on('data', function (data) {
             console.log(JSON.parse(data));
         })
@@ -44,9 +46,11 @@ app.post('/', function (req, res) {
 
     request.write(jsonData);
     request.end();
-
 });
 
+app.post("/failure", function (req, res) {
+    res.redirect("/")
+});
 
 app.listen(3000, function () {
     console.log('Server is running on port 3000');
