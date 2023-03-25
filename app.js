@@ -31,12 +31,8 @@ app.post('/', function (req, res) {
     };
 
     const jsonData = JSON.stringify(data);
-    //Here is the data from the API, which I cannot share
-    const url = 'https://us21.api.mailchimp.com./3.0/lists/1a5cbd9dab'; //MyURL
-    const options = {
-        method: 'POST',
-        auth: 'Lukasz:ffd501c0c0b01385c63b0635d20556ca-us21' //AUTH FROM API
-    }
+    //Here is the data from the API, which I cannot share because then API key will be revoked!
+    
     const request = https.request(url, options, function (response) {
         if (response.statusCode === 200) {
             res.sendFile(__dirname + '/success.html');
